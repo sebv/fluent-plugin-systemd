@@ -61,8 +61,12 @@ module Fluent
 
     def run
       Thread.current.abort_on_exception = true
+      i = 0
       watch do |entry|
-        log.warn('XOXOXO in_systemd watch' + formatted(entry))
+        i = i + 1
+        if i % 100 === 0
+          log.warn('XOXOXO in_systemd watch') 
+        end
         begin
           router.emit(@tag, entry.realtime_timestamp.to_i, formatted(entry))
         rescue => e
