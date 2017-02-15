@@ -64,12 +64,12 @@ module Fluent
       i = 0
       watch do |entry|
         i = i + 1
-        if i % 100 === 0
+        if i % 1000 === 0
           log.warn('XOXOXO in_systemd watch') 
         end
-        formatted(entry).each do |k, v|
-          log.warn("XOXO" + k + " -> " + v)
-        end
+        #formatted(entry).each do |k, v|
+          #log.warn("XOXO" + k + " -> " + v)
+        #end
         begin
           router.emit(@tag, entry.realtime_timestamp.to_i, formatted(entry))
         rescue => e
